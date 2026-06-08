@@ -22,7 +22,7 @@ async def process(request: ProcessRequest):
 
     for file_path in audio_files:
         try:
-            # Demucs est lourd sur le CPU donc déporté sur un thread système, évite de bloquer l'API
+            # Demucs est lourd sur le CPU et la RAM donc déporté sur un thread système, évite de bloquer l'API
             _, stats = await asyncio.to_thread(measure, separate_file, file_path, request.output_folder)
             processed.append({"file": file_path, "stats": stats})
         except Exception as e:
